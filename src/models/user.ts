@@ -1,7 +1,17 @@
-// import * as bcrypt from 'bcrypt';
-import { Schema, model } from 'mongoose';
+import * as bcrypt from 'bcrypt';
+import { Schema, model, Document } from 'mongoose';
 
-const UserSchema: Schema = new Schema({
+export interface IUser extends Document {
+  username: string,
+  email: string,
+  dateOfBirth: Date,
+  gender: string,
+  password: string,
+  confirmPassword: string,
+  validatePassword: (password: string, userPassword: string) => Promise<boolean>;
+}
+
+const UserSchema = new Schema({
   username: {
     type: Schema.Types.String,
     required: true,
@@ -29,15 +39,17 @@ const UserSchema: Schema = new Schema({
   }
 });
 
-// UserSchema.methods.validatePassword = async (currentPassword: string, userPassword: string) => {
-//   return await bcrypt.compare(currentPassword, userPassword);
-// }
+UserSchema.methods.validatePassword = async function (currentPassword: string, password: string): Promise<boolean> {
+  console.log('currentPassword---------->', currentPassword)
+  console.log('password---------->', password)
+  return await bcrypt.compare(currentPassword, password);
+}
 
-// UserSchema.pre('save', async function (next) {
-//   if (!this.isModified('password')) return next();
-//   this.password = await bcrypt.hash((this.password as string | Buffer), 12);
-//   this.confirmPassword = undefined;
-//   next();
-// });
+UserSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) return next();
+  this.password = await bcrypt.hash((this.password as string | Buffer), 12);
+  this.confirmPassword = undefined;
+  next();
+});
 
-export const User = model('User', UserSchema);
+export const User = model<IUser>('User', UserSchema);
