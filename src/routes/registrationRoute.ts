@@ -1,10 +1,11 @@
 import { Router } from 'express';
-import registrationController from '../controllers/registrationController';
+import RegistrationControl from '../controllers/registrationController';
 
 const registrationRouter = Router();
+const registrationControl = new RegistrationControl();
 
 registrationRouter
   .route('/register')
-  .post(registrationController);
+  .post(registrationControl.createNewUser);
 
 export default registrationRouter;

@@ -1,9 +1,11 @@
+import { Request, Response } from "express";
 import { User } from "../models/user";
-
-const registrationControl = async (req: any, res: any) => {
-  console.log(req.body)
-  const user = await User.create(req.body);
-  res.status(200).json({user})
+class RegistrationControl {
+  public async createNewUser(request: Request, response: Response): Promise<void> {
+    console.log(request.body)
+    const user = await User.create(request.body);
+    response.status(200).json({ user });
+  }
 }
 
-export default registrationControl;
+export default RegistrationControl;
