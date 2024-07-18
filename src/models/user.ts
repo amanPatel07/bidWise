@@ -14,8 +14,7 @@ const UserSchema: Schema = new Schema({
   },
   dateOfBirth: {
     type: Schema.Types.Date,
-    required: true,
-    unique: true
+    required: true
   },
   gender: {
     type: Schema.Types.String
