@@ -1,14 +1,14 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { User } from "../models/user";
 import { GenerateAccessToken } from "../utils/generateAccessToken";
 
-class Login extends GenerateAccessToken {
+class Login extends Error {
 
-  public async login(request: Request, response: Response): Promise<void> {
+  public async login(request: Request, response: Response, next: NextFunction): Promise<void> {
     const { username, password } = request.body;
 
     if (!username && !password) {
-      response.status(400).json()
+      return next(new Error('Something went wrong'));
     }
 
     const user = await User.findOne({ username }).select('+password');
@@ -20,11 +20,11 @@ class Login extends GenerateAccessToken {
         response.status(200).json({
           access_token: generateAccessToken.generateAccessToken(user.id)
         })
+      } else {
+        return next(new Error('Not Authenticated User'));
       }
     } else {
-      response.status(400).json({
-        message: 'No User Found'
-      })
+      return next(new Error('User not found'));
     }
   }
 }
