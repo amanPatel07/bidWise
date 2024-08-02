@@ -3,6 +3,7 @@ import { User } from "../models/user.model";
 import ErrorHandler from "../utils/error-handler";
 class RegistrationControl extends ErrorHandler {
   public async createNewUser(request: Request, response: Response, next: NextFunction): Promise<void> {
+    console.log('fjhkjdhkdfhdfhdfhkjdf', request.body)
     const user = await User.create(request.body);
     if (!user) {
       return next(new ErrorHandler('Something went wrong', 404))

@@ -25,7 +25,7 @@ const auctionSchema = new Schema({
   status: {
     type: Schema.Types.String
   },
-  seller: {
+  sellerId: {
     type: Schema.Types.String
   },
   highestBidder: {

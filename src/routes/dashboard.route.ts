@@ -6,6 +6,10 @@ const dashboardController = new Dashboard();
 
 dashboard
   .route('/dashboard')
-  .get();
+  .get(dashboardController.getAuctionList);
+
+dashboard
+  .route('/auction/:id')
+  .get(dashboardController.getAuctionById);
 
 export default dashboard;
