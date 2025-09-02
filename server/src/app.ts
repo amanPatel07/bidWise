@@ -1,35 +1,48 @@
-import express, { Request, Response, NextFunction } from 'express';
-import { Pool } from 'pg';
-import dotenv from 'dotenv';
+import express, { Express } from 'express';
 import morgan from 'morgan';
+import connectDatabase from './config/databaseConfig';
+import setRoutes from './routes';
 import { errorHandler } from './shared/errorHandler';
-import { setRoutes } from './routes/index';
+import Database from './config/databaseConfig';
+import Routes from './routes';
 
-dotenv.config();
+class App {
+    private app: Express;
+    private port: number;
 
-const app = express();
-const port = process.env.PORT || 3000;
+    constructor() {
+        this.app = express();
+        this.port = Number(process.env.PORT) || 3000;
+        this.connectToDatabase();
+        this.initializeMiddlewares();
+        this.initializeRoutes();
+        this.initializeErrorHandling();
+    }
 
-// PostgreSQL connection
-const pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
-});
+    private initializeMiddlewares(): void {
+        this.app.use(morgan('dev'));
+        this.app.use(express.json());
+    }
 
-pool.connect()
-    .then(() => console.log('Connected to PostgreSQL database'))
-    .catch(err => console.error('Database connection error', err));
+    private async connectToDatabase(): Promise<void> {
+        const db = Database.getInstance();
+        await db.connect();
+    }
 
-// Middleware
-app.use(express.json());
-app.use(morgan('dev'));
+    private initializeRoutes(): void {
+        Routes.initialize(this.app);
+    }
 
-// Set up routes
-setRoutes(app);
+    private initializeErrorHandling(): void {
+        this.app.use(errorHandler);
+    }
 
-// Error handling middleware
-app.use(errorHandler);
+    public listen(): void {
+        this.app.listen(this.port, () => {
+            console.log(`Server is running on http://localhost:${this.port}`)
+        })
+    }
+}
 
-// Start the server
-app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
-});
+const appInstance = new App();
+appInstance.listen();

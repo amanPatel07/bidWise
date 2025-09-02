@@ -1,0 +1,69 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                  String    @id @default(uuid()) @db.Uuid
+  name                String
+  email               String    @unique
+  password            String
+  contactNumber       String?
+  profileImage        String?
+  role                String    @default("buyer")
+  status              String    @default("active")
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+  lastLoginAt         DateTime?
+  failedLoginAttempts Int       @default(0)
+  Auction             Auction[]
+}
+
+enum Role {
+  ADMIN
+  SELLER
+  BUYER
+  USER
+}
+
+enum AuctionStatus {
+  DRAFT
+  ACTIVE
+  CLOSED
+  CANCELLED
+}
+
+model Auction {
+  id            String        @id @default(uuid()) @db.Uuid
+  title         String
+  description   String
+  startingPrice Float
+  reservePrice  Float?
+  currentPrice  Float?
+  status        AuctionStatus @default(DRAFT)
+  startTime     DateTime
+  endTime       DateTime
+  createdAT     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  sellerId      String        @db.Uuid
+  seller        User          @relation(fields: [sellerId], references: [id])
+  bids          Bid[]
+}
+
+model Bid {
+  id        String   @id @default(uuid()) @db.Uuid
+  amount    Float
+  created   DateTime @default(now())
+  auctionId String   @db.Uuid
+  auction   Auction  @relation(fields: [auctionId], references: [id])
+}
