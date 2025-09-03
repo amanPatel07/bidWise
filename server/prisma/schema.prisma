@@ -27,6 +27,7 @@ model User {
   lastLoginAt         DateTime?
   failedLoginAttempts Int       @default(0)
   Auction             Auction[]
+  Bid                 Bid[]
 }
 
 enum Role {
@@ -66,4 +67,6 @@ model Bid {
   created   DateTime @default(now())
   auctionId String   @db.Uuid
   auction   Auction  @relation(fields: [auctionId], references: [id])
+  buyerId   String   @db.Uuid
+  buyer     User?    @relation(fields: [buyerId], references: [id])
 }

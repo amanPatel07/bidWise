@@ -52,9 +52,20 @@ class UserController {
 
     static async getUserById(req: Request, res: Response, next: NextFunction) {
         try {
-            const userId = req.body?.userId;
+            const userId: string = req.params.id;
+            const user = await userSchema.findUnique({
+                where: {
+                    id: userId
+                }
+            });
+            if (!user) {
+                const err = new Error('No user found with given id');
+                (err as any).statusCode = HttpStatus.NOT_FOUND;
+                throw err;
+            }
+            responseSender(res, HttpStatus.FOUND, 'Success', user)
         } catch (error) {
-
+            next(error);
         }
     }
 }

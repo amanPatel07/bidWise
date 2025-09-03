@@ -1,15 +1,12 @@
 import { Router } from "express";
-import UserController from "../../../controller/UserController";
+import UserController from "../../../controller/userController";
 import requireRole from "../../../middleware/requireRole";
 
 const userRouter = Router();
 
-try {
-    userRouter.post('/', UserController.createUser);
-    userRouter.get('/', UserController.getUsers);
-    userRouter.get('/:id', UserController.getUserById);
-} catch (error) {
-    throw error;
-}
+userRouter
+    .post('/', UserController.createUser)
+    .get('/', UserController.getUsers)
+    .get('/:id', UserController.getUserById);
 
 export default userRouter;
