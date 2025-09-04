@@ -5,6 +5,7 @@ import setRoutes from './routes';
 import { errorHandler } from './shared/errorHandler';
 import Database from './config/databaseConfig';
 import Routes from './routes';
+import cors from 'cors';
 
 class App {
     private app: Express;
@@ -14,6 +15,7 @@ class App {
         this.app = express();
         this.port = Number(process.env.PORT) || 3000;
         this.connectToDatabase();
+        this.configureCors();
         this.initializeMiddlewares();
         this.initializeRoutes();
         this.initializeErrorHandling();
@@ -27,6 +29,10 @@ class App {
     private async connectToDatabase(): Promise<void> {
         const db = Database.getInstance();
         await db.connect();
+    }
+
+    private configureCors(): void {
+        this.app.use(cors());
     }
 
     private initializeRoutes(): void {
