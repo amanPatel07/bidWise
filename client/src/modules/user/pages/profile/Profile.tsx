@@ -5,7 +5,8 @@ const Profile = () => {
 
     console.log(data, isLoading)
     return (
-        <></>
+        <>
+        </>
     );
 }
 

@@ -52,7 +52,7 @@ class AuctionController {
                 (err as any).statusCode = HttpStatus.NOT_FOUND;
                 throw err;
             }
-            responseSender(res, HttpStatus.FOUND, 'Success', auctions);
+            responseSender(res, HttpStatus.OK, 'Success', auctions);
         } catch (error) {
             next(error);
         }

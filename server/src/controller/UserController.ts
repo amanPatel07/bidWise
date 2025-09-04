@@ -2,6 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import { NextFunction, Request, Response } from "express";
 import { HttpStatus } from "../shared/models/http-status-code.model";
 import { responseSender } from "../shared/responseSender";
+import type { IUser } from '@auction/shared';
 
 const prisma = new PrismaClient();
 const userSchema = prisma.user;
@@ -38,7 +39,7 @@ class UserController {
 
     static async getUsers(req: Request, res: Response, next: NextFunction) {
         try {
-            const users = await userSchema.findMany();
+            const users: IUser[] | unknown = await userSchema.findMany();
             if (!users) {
                 const err = new Error('No Users Found');
                 (err as any).statusCode = HttpStatus.NOT_FOUND;
@@ -53,7 +54,7 @@ class UserController {
     static async getUserById(req: Request, res: Response, next: NextFunction) {
         try {
             const userId: string = req.params.id;
-            const user = await userSchema.findUnique({
+            const user: IUser | unknown = await userSchema.findUnique({
                 where: {
                     id: userId
                 }

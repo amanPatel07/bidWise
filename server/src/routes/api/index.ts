@@ -1,6 +1,6 @@
 import { Router } from "express";
 import userRouter from "./user/userRouter";
-import auctionRouter from "./auction/auctonRouter";
+import auctionRouter from "./auction/auctionRouter";
 import bidRouter from "./bid/bidRouter";
 
 const router = Router();
