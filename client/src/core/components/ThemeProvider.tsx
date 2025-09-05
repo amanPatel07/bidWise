@@ -9,7 +9,7 @@ export const theme = createTheme({
     white: '#ffffff',
     black: '#1a1b1e',
     colors: {
-        brand: [
+        primary: [
             "#fff4e6", // 0
             "#ffe8cc", // 1
             "#ffd8a8", // 2
@@ -35,7 +35,7 @@ export const theme = createTheme({
         ],
     },
     primaryShade: { light: 6, dark: 8 },
-    primaryColor: "brand",
+    primaryColor: "primary",
     autoContrast: true,
     luminanceThreshold: 0.3,
     fontFamily: "Inter, Roboto, sans-serif",
@@ -68,8 +68,8 @@ export const theme = createTheme({
     respectReducedMotion: true,
     cursorType: "pointer",
     defaultGradient: {
-        from: "brand.5",
-        to: "brand.8",
+        from: "primary.5",
+        to: "primary.8",
         deg: 45,
     },
     other: {

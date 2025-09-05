@@ -1,6 +1,6 @@
 import type { IUser } from './user.model';
 
-export interface Auction {
+export interface IAuction {
     id: string;
     title: string;
     description: string;

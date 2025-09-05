@@ -1,11 +1,9 @@
+import cors from 'cors';
 import express, { Express } from 'express';
 import morgan from 'morgan';
-import connectDatabase from './config/databaseConfig';
-import setRoutes from './routes';
-import { errorHandler } from './shared/errorHandler';
 import Database from './config/databaseConfig';
 import Routes from './routes';
-import cors from 'cors';
+import { errorHandler } from './shared/errorHandler';
 
 class App {
     private app: Express;

@@ -26,6 +26,14 @@ const Master = () => {
                 }
             }}
             padding="md"
+            styles={{
+                main: {
+                    display: 'flex',
+                    flexDirection: 'column',
+                    height: '100%',
+                    overflow: 'hidden',
+                },
+            }}
         >
             <AppShell.Navbar>
                 <Sidebar />
@@ -41,7 +49,6 @@ const Master = () => {
             </AppShell.Header>
 
             <AppShell.Main
-                h="100%"
             >
                 <Outlet />
             </AppShell.Main>
