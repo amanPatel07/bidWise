@@ -26,7 +26,8 @@ model User {
   updatedAt           DateTime  @updatedAt
   lastLoginAt         DateTime?
   failedLoginAttempts Int       @default(0)
-  Auction             Auction[]
+  auctionSeller       Auction[] @relation("AuctionSeller")
+  auctionWinner       Auction[] @relation("AuctionWinner")
   Bid                 Bid[]
 }
 
@@ -57,8 +58,10 @@ model Auction {
   createdAT     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
   sellerId      String        @db.Uuid
-  seller        User          @relation(fields: [sellerId], references: [id])
+  seller        User          @relation("AuctionSeller", fields: [sellerId], references: [id])
   bids          Bid[]
+  winnerId      String?       @db.Uuid
+  winner        User?         @relation("AuctionWinner", fields: [winnerId], references: [id])
 }
 
 model Bid {

@@ -4,7 +4,7 @@ import morgan from 'morgan';
 import Database from './config/databaseConfig';
 import Routes from './routes';
 import { errorHandler } from './shared/errorHandler';
-
+// import './scripts/auctionScheduler';
 class App {
     private app: Express;
     private port: number;

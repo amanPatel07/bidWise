@@ -1,6 +1,8 @@
 import { Grid, Paper, ScrollArea, Stack, Text, Title } from "@mantine/core";
+
 import TableSkeleton from "../../../components/TableSkeleton";
-import ActiveAuctions from "../components/ActiveAuctions";
+import BuyerStats from "../components/BuyerStats";
+import DashboardAuctions from "../components/DashboardAuctions";
 import NotificationList from "../components/NotificationList";
 import SectionHeader from "../components/SectionHeader";
 import { useGetActiveAuctionsQuery } from "./utility/slices/auction.service";
@@ -14,7 +16,7 @@ const BuyerDashboard = () => {
     }
 
     return (
-        <ScrollArea>
+        <>
             <Title
                 order={3}
                 pb="md"
@@ -28,54 +30,54 @@ const BuyerDashboard = () => {
             >
                 <Grid.Col
                     span={{ base: 12, sm: 12, md: 6 }}
-
+                    h={270}
                 >
                     <Paper
                         shadow="lg"
                         p="md"
                         withBorder
+                        h="100%"
                     >
                         <SectionHeader
                             title="Buyer Stats"
                             btnText="View All"
                         />
-                        <Stack
-                            bg="var(--mantine-color-body)"
-                            align="stretch"
-                            justify="center"
-                            gap="md"
-                        >
-                            <Text>Bid Placed</Text>
-                            <Text>Auctions Won</Text>
-                            <Text>Total Spent</Text>
-                            <Text>Active Bids</Text>
-                        </Stack>
+                        <BuyerStats />
                     </Paper>
                 </Grid.Col>
                 <Grid.Col
                     span={{ base: 12, sm: 12, md: 6 }}
+                    h={270}
                 >
                     <Paper
                         shadow="lg"
                         p="md"
                         withBorder
+                        h="100%"
+                        display="flex"
+                        style={{flexDirection: 'column'}}
                     >
                         <SectionHeader
                             title="Active Auctions"
                             btnText="View All"
                         />
-                        <ActiveAuctions
-                            auctions={auctionList}
-                        />
+                        <ScrollArea>
+                            <DashboardAuctions
+                                auctions={auctionList}
+                                viewActiveAuction={true}
+                            />
+                        </ScrollArea>
                     </Paper>
                 </Grid.Col>
                 <Grid.Col
                     span={{ base: 12, sm: 12, md: 6 }}
+                    h={270}
                 >
                     <Paper
                         shadow="lg"
                         p="md"
                         withBorder
+                        h="100%"
                     >
                         <SectionHeader
                             title="Auctions"
@@ -96,11 +98,13 @@ const BuyerDashboard = () => {
                 </Grid.Col>
                 <Grid.Col
                     span={{ base: 12, sm: 12, md: 6 }}
+                    h={270}
                 >
                     <Paper
                         shadow="lg"
                         p="md"
                         withBorder
+                        h="100%"
                     >
                         <SectionHeader
                             title="Notification"
@@ -160,7 +164,7 @@ const BuyerDashboard = () => {
                     </Paper>
                 </Grid.Col>
             </Grid>
-        </ScrollArea>
+        </>
     );
 }
 

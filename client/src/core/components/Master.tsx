@@ -1,4 +1,4 @@
-import { AppShell, useComputedColorScheme, useMantineColorScheme } from "@mantine/core";
+import { AppShell, ScrollArea, useComputedColorScheme, useMantineColorScheme } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { Outlet } from "react-router-dom";
 import Header from "./Header";
@@ -48,9 +48,10 @@ const Master = () => {
                 />
             </AppShell.Header>
 
-            <AppShell.Main
-            >
-                <Outlet />
+            <AppShell.Main>
+                <ScrollArea>
+                    <Outlet />
+                </ScrollArea>
             </AppShell.Main>
         </AppShell>
     );

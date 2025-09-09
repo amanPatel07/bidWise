@@ -1,4 +1,4 @@
-import { Auction } from "./auction.model";
+import { IAuction } from "./auction.model";
 import { IUser } from "./user.model";
 
 export interface Bid {
@@ -6,7 +6,7 @@ export interface Bid {
     amount: number;
     created: Date;
     auctionId: string;
-    auction: Auction;
+    auction: IAuction;
     buyerId: string;
     buyer: IUser;
 }

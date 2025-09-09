@@ -1,4 +1,4 @@
-import type { Auction } from "./auction.model";
+import type { IAuction } from "./auction.model";
 
 export interface IUser {
     id: string;
@@ -12,6 +12,6 @@ export interface IUser {
     updatedAt: Date;
     lastLoginAt: Date
     failedLoginAttempts: number
-    Auction?: Auction[];
+    Auction?: IAuction[];
     Bid?: any;
 }

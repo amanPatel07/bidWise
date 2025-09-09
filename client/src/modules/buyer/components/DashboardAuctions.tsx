@@ -1,17 +1,16 @@
-import type { IAuction } from "@auction/shared";
+import { type IAuction } from "@auction/shared";
 import { Group, Image, Paper, Stack, Text } from "@mantine/core";
 
 type ActiveAuctionProps = {
     auctions: IAuction[] | undefined;
+    viewActiveAuction: boolean;
 }
 
-const ActiveAuctions = ({ auctions }: ActiveAuctionProps) => {
+const DashboardAuctions = ({ auctions, viewActiveAuction }: ActiveAuctionProps) => {
 
     if (!auctions) {
         return <></>
     }
-
-
 
     return (
         <Stack
@@ -22,6 +21,7 @@ const ActiveAuctions = ({ auctions }: ActiveAuctionProps) => {
         >
             {
                 auctions?.length && auctions.map((item: IAuction) => (
+                    item.status === 'ACTIVE' &&
                     <Paper
                         withBorder
                         bdrs="xs"
@@ -37,6 +37,7 @@ const ActiveAuctions = ({ auctions }: ActiveAuctionProps) => {
                             />
                             <Stack
                                 justify="center"
+                                gap={0}
                             >
                                 <Group
                                     align=""
@@ -79,4 +80,4 @@ const ActiveAuctions = ({ auctions }: ActiveAuctionProps) => {
     );
 }
 
-export default ActiveAuctions;
+export default DashboardAuctions;
