@@ -3,7 +3,7 @@ import express, { Express } from 'express';
 import morgan from 'morgan';
 import Database from './config/databaseConfig';
 import Routes from './routes';
-import { errorHandler } from './shared/errorHandler';
+import errorHandler from './middleware/errorHandler';
 // import './scripts/auctionScheduler';
 class App {
     private app: Express;

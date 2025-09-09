@@ -4,7 +4,7 @@ import baseApi from "../../../../../core/utility/service/apiSlice";
 const auctionSlice = baseApi.injectEndpoints({
     endpoints: (builder) => ({
         getActiveAuctions: builder.query({
-            query: (_: void) => `auction`,
+            query: (status: string | void) => `auction?status=${status}`,
             transformResponse: (response: { status: number; message: string; data: IAuction[] }) => {
                 return response.data;
             },

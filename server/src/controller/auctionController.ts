@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { AuctionStatus, PrismaClient } from "@prisma/client";
 import { NextFunction, Request, Response } from "express";
 import { HttpStatus } from "../shared/models/http-status-code.model";
 import { responseSender } from "../shared/responseSender";
@@ -46,7 +46,14 @@ class AuctionController {
 
     static async getAllAuction(req: Request, res: Response, next: NextFunction) {
         try {
-            const auctions = await auctionSchema.findMany();
+            const { status } = req.query;
+            let whereClause = {};
+            if (typeof status === 'string' && Object.values(AuctionStatus).includes(status as AuctionStatus)) {
+                whereClause = { status: status as AuctionStatus};
+            }
+            const auctions = await auctionSchema.findMany({
+                where: whereClause
+            });
             if (!auctions) {
                 const err = new Error('No auction found with given id');
                 (err as any).statusCode = HttpStatus.NOT_FOUND;

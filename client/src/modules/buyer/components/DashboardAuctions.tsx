@@ -1,15 +1,22 @@
 import { type IAuction } from "@auction/shared";
 import { Group, Image, Paper, Stack, Text } from "@mantine/core";
 
+import TableSkeleton from "../../../components/TableSkeleton";
+import { useGetActiveAuctionsQuery } from "../dashboard/utility/slices/auction.service";
+
 type ActiveAuctionProps = {
-    auctions: IAuction[] | undefined;
-    viewActiveAuction: boolean;
+    auctionStatus?: string;
 }
 
-const DashboardAuctions = ({ auctions, viewActiveAuction }: ActiveAuctionProps) => {
+const DashboardAuctions = ({ auctionStatus }: ActiveAuctionProps) => {
+    const { data: auctionList, isLoading } = useGetActiveAuctionsQuery(auctionStatus);
 
-    if (!auctions) {
-        return <></>
+    if (isLoading) {
+        return <TableSkeleton />
+    }
+
+    if (!auctionList) {
+        return <>No Data found</>
     }
 
     return (
@@ -20,8 +27,7 @@ const DashboardAuctions = ({ auctions, viewActiveAuction }: ActiveAuctionProps) 
             gap="md"
         >
             {
-                auctions?.length && auctions.map((item: IAuction) => (
-                    item.status === 'ACTIVE' &&
+                auctionList?.length && auctionList.map((item: IAuction) => (
                     <Paper
                         withBorder
                         bdrs="xs"

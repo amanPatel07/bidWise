@@ -7,6 +7,7 @@ const userRouter = Router();
 userRouter
     .post('/', UserController.createUser)
     .get('/', UserController.getUsers)
-    .get('/:id', UserController.getUserById);
+    .get('/:id', UserController.getUserById)
+    .get('/dashboard/:id', UserController.getUserStats)
 
 export default userRouter;

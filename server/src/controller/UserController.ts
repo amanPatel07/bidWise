@@ -3,6 +3,7 @@ import { NextFunction, Request, Response } from "express";
 import { HttpStatus } from "../shared/models/http-status-code.model";
 import { responseSender } from "../shared/responseSender";
 import type { IUser } from '@auction/shared';
+import AppError from "../core/handler/appErrorHandler";
 
 const prisma = new PrismaClient();
 const userSchema = prisma.user;
@@ -24,9 +25,7 @@ class UserController {
         try {
             const userDetails = req.body || defaultUser;
             if (!userDetails.name || !userDetails.email) {
-                const err = new Error("Name and Email are required");
-                (err as any).statusCode = HttpStatus.BAD_REQUEST;
-                throw err;
+                throw new AppError("Name and Email are required", HttpStatus.BAD_REQUEST);
             }
             const user = await userSchema.create({
                 data: { ...userDetails }
@@ -41,9 +40,7 @@ class UserController {
         try {
             const users: IUser[] | unknown = await userSchema.findMany();
             if (!users) {
-                const err = new Error('No Users Found');
-                (err as any).statusCode = HttpStatus.NOT_FOUND;
-                throw err;
+                throw new AppError('No Users Found', HttpStatus.NOT_FOUND);
             }
             responseSender(res, HttpStatus.OK, 'Success', users)
         } catch (error) {
@@ -60,13 +57,41 @@ class UserController {
                 }
             });
             if (!user) {
-                const err = new Error('No user found with given id');
-                (err as any).statusCode = HttpStatus.NOT_FOUND;
-                throw err;
+                throw new AppError('No user found with given id', HttpStatus.NOT_FOUND);
             }
-            responseSender(res, HttpStatus.FOUND, 'Success', user)
+            responseSender(res, HttpStatus.OK, 'Success', user)
         } catch (error) {
             next(error);
+        }
+    }
+
+    static async getUserStats(req: Request, res: Response, next: NextFunction) {
+        try {
+            const { userId } = req.params;
+            let stats = {
+                bidPlaced: 0,
+                auctionsWon: 0,
+                totalSpent: 0,
+                activeBids: 0
+            }
+
+            const auctionsWon = await prisma.auction.findMany({
+                where: {
+                    winnerId: userId
+                }
+            });
+            stats.auctionsWon = auctionsWon?.length;
+
+            const totalBids = await prisma.bid.findMany({
+                where: {
+                    buyerId: userId
+                }
+            });
+            stats.bidPlaced = totalBids?.length;
+
+            responseSender(res, HttpStatus.OK, 'Success', stats);
+        } catch (error) {
+
         }
     }
 }
