@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { NextFunction, Request, Response } from "express";
+import AppError from "../core/handler/appErrorHandler";
 import { HttpStatus } from "../shared/models/http-status-code.model";
 import { responseSender } from "../shared/responseSender";
 
@@ -21,16 +22,12 @@ class BidController {
                 });
 
                 if (!auction) {
-                    const err = new Error('Auction not found');
-                    (err as any).statusCode = HttpStatus.NOT_FOUND;
-                    throw err;
+                    throw new AppError('Auction not found', HttpStatus.NOT_FOUND);
                 }
 
                 const now = new Date();
                 if (auction.status !== "ACTIVE" || now < auction.startTime || now > auction.endTime) {
-                    const err = new Error('Auction is not open for bidding');
-                    (err as any).statusCode = HttpStatus.BAD_REQUEST;
-                    throw err;
+                    throw new AppError('Auction is not open for bidding', HttpStatus.BAD_REQUEST);
                 }
 
                 // Find highest bid
@@ -41,9 +38,7 @@ class BidController {
 
                 const minBid = highestBid?.amount ?? auction.startingPrice;
                 if (amount <= minBid) {
-                    const err = new Error(`Bid must be higher than ${minBid}`);
-                    (err as any).statusCode = HttpStatus.BAD_REQUEST;
-                    throw err;
+                    throw new AppError(`Bid must be higher than ${minBid}`, HttpStatus.BAD_REQUEST);
                 }
 
                 const bid = await tx.bid.create({

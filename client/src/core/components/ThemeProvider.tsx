@@ -1,7 +1,7 @@
 import { createTheme, localStorageColorSchemeManager, MantineProvider, rem } from '@mantine/core';
-import type { PropsWithChildren } from 'react';
 import '@mantine/core/styles.css';
 import '@mantine/dates/styles.css';
+import type { PropsWithChildren } from 'react';
 
 export const theme = createTheme({
     focusRing: 'auto',
@@ -21,7 +21,7 @@ export const theme = createTheme({
             "#e8590c", // 8 primary-dark
             "#d9480f", // 9
         ],
-        gray: [
+        secondary: [
             "#f8f9fa",
             "#f1f3f5",
             "#e9ecef",
@@ -33,6 +33,9 @@ export const theme = createTheme({
             "#343a40",
             "#212529",
         ],
+        success: ["#e6fcf5", "#c3fae8", "#96f2d7", "#63e6be", "#38d9a9", "#20c997", "#12b886", "#0ca678", "#099268", "#087f5b"],
+        danger: ["#fff5f5", "#ffe3e3", "#ffc9c9", "#ffa8a8", "#ff8787", "#ff6b6b", "#fa5252", "#f03e3e", "#e03131", "#c92a2a"],
+        warning: ["#fff9db", "#fff3bf", "#ffec99", "#ffe066", "#ffd43b", "#fcc419", "#fab005", "#f59f00", "#f08c00", "#e67700"],
     },
     primaryShade: { light: 6, dark: 8 },
     primaryColor: "primary",

@@ -1,9 +1,11 @@
+import type { IUser } from '@auction/shared';
 import { PrismaClient } from "@prisma/client";
 import { NextFunction, Request, Response } from "express";
+import AppError from "../core/handler/appErrorHandler";
+import UserRepository from "../core/queries/userRepository";
+import UserService from "../services/user.service";
 import { HttpStatus } from "../shared/models/http-status-code.model";
 import { responseSender } from "../shared/responseSender";
-import type { IUser } from '@auction/shared';
-import AppError from "../core/handler/appErrorHandler";
 
 const prisma = new PrismaClient();
 const userSchema = prisma.user;
@@ -27,7 +29,7 @@ class UserController {
             if (!userDetails.name || !userDetails.email) {
                 throw new AppError("Name and Email are required", HttpStatus.BAD_REQUEST);
             }
-            const user = await userSchema.create({
+            const user = await UserRepository.createUser({
                 data: { ...userDetails }
             });
             responseSender(res, HttpStatus.CREATED, 'Created', user)
@@ -38,7 +40,7 @@ class UserController {
 
     static async getUsers(req: Request, res: Response, next: NextFunction) {
         try {
-            const users: IUser[] | unknown = await userSchema.findMany();
+            const users: IUser[] | unknown = await UserRepository.findMany({});
             if (!users) {
                 throw new AppError('No Users Found', HttpStatus.NOT_FOUND);
             }
@@ -51,11 +53,7 @@ class UserController {
     static async getUserById(req: Request, res: Response, next: NextFunction) {
         try {
             const userId: string = req.params.id;
-            const user: IUser | unknown = await userSchema.findUnique({
-                where: {
-                    id: userId
-                }
-            });
+            const user: IUser | unknown = await UserRepository.findById(userId);
             if (!user) {
                 throw new AppError('No user found with given id', HttpStatus.NOT_FOUND);
             }
@@ -67,31 +65,11 @@ class UserController {
 
     static async getUserStats(req: Request, res: Response, next: NextFunction) {
         try {
-            const { userId } = req.params;
-            let stats = {
-                bidPlaced: 0,
-                auctionsWon: 0,
-                totalSpent: 0,
-                activeBids: 0
-            }
-
-            const auctionsWon = await prisma.auction.findMany({
-                where: {
-                    winnerId: userId
-                }
-            });
-            stats.auctionsWon = auctionsWon?.length;
-
-            const totalBids = await prisma.bid.findMany({
-                where: {
-                    buyerId: userId
-                }
-            });
-            stats.bidPlaced = totalBids?.length;
-
+            const { id } = req.params;
+            const stats = await UserService.getUserStats(id);
             responseSender(res, HttpStatus.OK, 'Success', stats);
         } catch (error) {
-
+            next(error);
         }
     }
 }

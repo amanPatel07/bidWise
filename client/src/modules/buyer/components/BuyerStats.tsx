@@ -1,6 +1,14 @@
 import { Group, Stack, Text } from "@mantine/core";
+import { useSelector } from "react-redux";
+import type { RootState } from "../../../store/store";
+import { useGetDashboardStatsQuery } from "../dashboard/utility/slices/dashboard.service";
 
 const BuyerStats = () => {
+    const user = useSelector((state: RootState) => state.user.user);
+    const { data: userStats, isLoading } = useGetDashboardStatsQuery(user?.id, { skip: !user.id });
+
+    if (isLoading) <></>
+
     return (
         <Stack
             bg="var(--mantine-color-body)"
@@ -13,7 +21,7 @@ const BuyerStats = () => {
                 <Text
                     fw="bold"
                 >
-                    1
+                    {userStats?.bidPlaced}
                 </Text>
             </Group>
             <Group>
@@ -21,7 +29,7 @@ const BuyerStats = () => {
                 <Text
                     fw="bold"
                 >
-                    1
+                    {userStats?.auctionsWon}
                 </Text>
             </Group>
             <Group>
@@ -29,7 +37,7 @@ const BuyerStats = () => {
                 <Text
                     fw="bold"
                 >
-                    1
+                    {userStats?.totalSpent}
                 </Text>
             </Group>
             <Group>
@@ -37,7 +45,7 @@ const BuyerStats = () => {
                 <Text
                     fw="bold"
                 >
-                    1
+                    {userStats?.activeBids}
                 </Text>
             </Group>
         </Stack>

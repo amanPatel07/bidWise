@@ -3,11 +3,15 @@ import { Group, Text, Title, UnstyledButton } from "@mantine/core";
 type SectionHeaderProps = {
     title: string;
     btnText: string;
+    showViewAll: boolean;
+    handleViewAllClick: () => void
 }
 
 const SectionHeader = ({
     title,
-    btnText
+    btnText,
+    showViewAll,
+    handleViewAllClick
 }: SectionHeaderProps) => {
     return (
         <Group
@@ -22,13 +26,18 @@ const SectionHeader = ({
             >
                 {title}
             </Title>
-            <UnstyledButton>
-                <Text
-                    c="primary.6"
+            {
+                showViewAll &&
+                <UnstyledButton
+                    onClick={handleViewAllClick}
                 >
-                    {btnText}
-                </Text>
-            </UnstyledButton>
+                    <Text
+                        c="primary.6"
+                    >
+                        {btnText}
+                    </Text>
+                </UnstyledButton>
+            }
         </Group>
     );
 }

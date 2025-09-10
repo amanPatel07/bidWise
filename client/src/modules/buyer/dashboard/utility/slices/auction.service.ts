@@ -8,11 +8,19 @@ const auctionSlice = baseApi.injectEndpoints({
             transformResponse: (response: { status: number; message: string; data: IAuction[] }) => {
                 return response.data;
             },
+            providesTags: ["AUCTION"]
+        }),
+        getAuctionById: builder.query({
+            query: (id: string) => `auction/${id}`,
+            transformResponse: (response: { status: number; message: string; data: IAuction }) => {
+                return response.data;
+            },
         })
     }),
     overrideExisting: false,
 });
 
 export const {
-    useGetActiveAuctionsQuery
+    useGetActiveAuctionsQuery,
+    useGetAuctionByIdQuery
 } = auctionSlice;

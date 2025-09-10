@@ -1,23 +1,23 @@
 import { AppShell, ScrollArea, useComputedColorScheme, useMantineColorScheme } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Outlet } from "react-router-dom";
+import { useGetUserByIdQuery } from "../../modules/user/pages/profile/utility/slices/userApiSlice";
+import { setUser } from "../../shared/slices/userSlice";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
-import { useGetUserByIdQuery } from "../../modules/user/pages/profile/utility/slices/userApiSlice";
-import { useDispatch } from "react-redux";
-import { useEffect } from "react";
-import { setUser } from "../../shared/slices/userSlice";
 
 const Master = () => {
     const [opened, { toggle }] = useDisclosure(false);
     const { setColorScheme } = useMantineColorScheme();
     const computed = useComputedColorScheme('light', { getInitialValueInEffect: true });
-    const { data: user, isLoading } = useGetUserByIdQuery('3c8979bf-8f25-4e32-8759-fb8fe73f91b9');
+    const { data: user, isLoading } = useGetUserByIdQuery('62f7f84b-5f66-45b0-946f-744a88a7dff2');
     const userDispatch = useDispatch();
 
     useEffect(() => {
         if (user) {
-            userDispatch(setUser(user));
+            userDispatch(setUser((user as any)));
         }
     }, [user, userDispatch]);
 

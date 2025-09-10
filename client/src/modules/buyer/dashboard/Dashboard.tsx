@@ -1,12 +1,19 @@
 import { Grid, Paper, ScrollArea, Stack, Title } from "@mantine/core";
-
 import { Auction_STATUS } from "@auction/shared";
+import { useNavigate } from "react-router-dom";
+// ----------------------------------------------------------------------- //
 import BuyerStats from "../components/BuyerStats";
 import DashboardAuctions from "../components/DashboardAuctions";
 import NotificationList from "../components/NotificationList";
 import SectionHeader from "../components/SectionHeader";
 
 const BuyerDashboard = () => {
+
+    const navigate = useNavigate();
+
+    const handleNavigate = (url: string) => {
+        navigate(url);
+    }
 
     return (
         <>
@@ -34,6 +41,8 @@ const BuyerDashboard = () => {
                         <SectionHeader
                             title="Buyer Stats"
                             btnText="View All"
+                            showViewAll={false}
+                            handleViewAllClick={() => handleNavigate('activeAuction')}
                         />
                         <BuyerStats />
                     </Paper>
@@ -53,6 +62,8 @@ const BuyerDashboard = () => {
                         <SectionHeader
                             title="Active Auctions"
                             btnText="View All"
+                            showViewAll={true}
+                            handleViewAllClick={() => handleNavigate('activeAuction')}
                         />
                         <ScrollArea>
                             <DashboardAuctions
@@ -76,6 +87,8 @@ const BuyerDashboard = () => {
                         <SectionHeader
                             title="Auctions"
                             btnText="View All"
+                            showViewAll={true}
+                            handleViewAllClick={() => handleNavigate('browse')}
                         />
                         <ScrollArea>
                             <DashboardAuctions />
@@ -95,6 +108,8 @@ const BuyerDashboard = () => {
                         <SectionHeader
                             title="Notification"
                             btnText="View All"
+                            showViewAll={true}
+                            handleViewAllClick={() => handleNavigate('activeAuction')}
                         />
                         <Stack
                             bg="var(--mantine-color-body)"

@@ -6,7 +6,8 @@ const baseApi = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: environment.BASE_URL
     }),
-    endpoints: () => ({})
+    endpoints: () => ({}),
+    tagTypes: ['AUCTION']
 });
 
 export default baseApi;
