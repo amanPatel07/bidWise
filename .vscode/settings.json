@@ -1,15 +1,8 @@
 {
-    "conventionalCommits.scopes": [
-        "project-setup"
-    ],
+    "conventionalCommits.scopes": ["project-setup"],
     "editor.formatOnSave": false,
     "editor.defaultFormatter": "Prisma.prisma",
-    "eslint.validate": [
-        "javascript",
-        "javascriptreact",
-        "typescript",
-        "typescriptreact"
-    ],
+    "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
     "[typescript]": {
         "editor.defaultFormatter": "vscode.typescript-language-features"
     },
