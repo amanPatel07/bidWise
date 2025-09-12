@@ -63,7 +63,7 @@ const BuyerDashboard = () => {
                             title="Active Auctions"
                             btnText="View All"
                             showViewAll={true}
-                            handleViewAllClick={() => handleNavigate('activeAuction')}
+                            handleViewAllClick={() => handleNavigate('auctions')}
                         />
                         <ScrollArea>
                             <DashboardAuctions

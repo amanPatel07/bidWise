@@ -1,6 +1,7 @@
 import { AppShell, ScrollArea, useComputedColorScheme, useMantineColorScheme } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { useEffect } from "react";
+import { Notifications } from "@mantine/notifications";
+import { Suspense, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Outlet } from "react-router-dom";
 import { useGetUserByIdQuery } from "../../modules/user/pages/profile/utility/slices/userApiSlice";
@@ -21,53 +22,56 @@ const Master = () => {
         }
     }, [user, userDispatch]);
 
-    console.log(user, isLoading)
-
     const toggleTheme = () => {
         setColorScheme(computed === 'light' ? 'dark' : 'light');
     }
 
     return (
-        <AppShell
-            layout="alt"
-            h="100%"
-            header={{ height: 56 }}
-            navbar={{
-                width: 260,
-                breakpoint: 'sm',
-                collapsed: {
-                    mobile: !opened
-                }
-            }}
-            padding="md"
-            styles={{
-                main: {
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: '100%',
-                    overflow: 'hidden',
-                },
-            }}
-        >
-            <AppShell.Navbar>
-                <Sidebar />
-            </AppShell.Navbar>
+        <>
+            <Notifications />
+            <AppShell
+                layout="alt"
+                h="100%"
+                header={{ height: 56 }}
+                navbar={{
+                    width: 260,
+                    breakpoint: 'sm',
+                    collapsed: {
+                        mobile: !opened
+                    }
+                }}
+                padding="md"
+                styles={{
+                    main: {
+                        display: 'flex',
+                        flexDirection: 'column',
+                        height: '100%',
+                        overflow: 'hidden',
+                    },
+                }}
+            >
+                <AppShell.Navbar>
+                    <Sidebar />
+                </AppShell.Navbar>
 
-            <AppShell.Header>
-                <Header
-                    opened={opened}
-                    toggle={toggle}
-                    toggleTheme={toggleTheme}
-                    computed={computed}
-                />
-            </AppShell.Header>
+                <AppShell.Header>
+                    <Header
+                        opened={opened}
+                        toggle={toggle}
+                        toggleTheme={toggleTheme}
+                        computed={computed}
+                    />
+                </AppShell.Header>
 
-            <AppShell.Main>
-                <ScrollArea>
-                    <Outlet />
-                </ScrollArea>
-            </AppShell.Main>
-        </AppShell>
+                <AppShell.Main>
+                    <ScrollArea>
+                        <Suspense>
+                            <Outlet />
+                        </Suspense>
+                    </ScrollArea>
+                </AppShell.Main>
+            </AppShell>
+        </>
     );
 }
 

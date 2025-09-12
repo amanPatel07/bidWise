@@ -1,9 +1,12 @@
+import { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
+// -------------------------------------------------------------------------------- //
 import Master from "./core/components/Master";
 import AuctionCard from "./modules/buyer/auctions/AuctionCard";
 import BrowseAuction from "./modules/buyer/auctions/BrowseAuctions";
-import Buyer from "./modules/buyer/Buyer";
-import BuyerDashboard from "./modules/buyer/dashboard/Dashboard";
+
+const BuyerDashboard = lazy(() => import("./modules/buyer/dashboard/Dashboard"));
+const Buyer = lazy(() => import("./modules/buyer/Buyer"));
 
 const appRouter = createBrowserRouter([
     {

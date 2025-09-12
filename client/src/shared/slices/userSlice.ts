@@ -1,8 +1,8 @@
-import type { IUser } from '@auction/shared';
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import type { UserInfo } from "../models/user.model";
 
 interface UserStore {
-    user: IUser
+    user: UserInfo
 }
 
 const initialState: UserStore = {
@@ -12,10 +12,11 @@ const initialState: UserStore = {
         email: '',
         contactNumber: '',
         profileImage: '',
-        role: '', status: '',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        lastLoginAt: new Date(),
+        role: '',
+        status: '',
+        createdAt: '',
+        updatedAt: '',
+        lastLoginAt: '',
         failedLoginAttempts: 0,
         Auction: [],
         Bid: []
@@ -26,7 +27,7 @@ const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        setUser: (state, action: PayloadAction<IUser>) => {
+        setUser: (state, action: PayloadAction<UserInfo>) => {
             state.user = action.payload
         }
     }

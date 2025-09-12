@@ -31,6 +31,7 @@ const DashboardAuctions = ({ auctionStatus }: ActiveAuctionProps) => {
                     <Paper
                         withBorder
                         bdrs="xs"
+                        key={item.id}
                     >
                         <Group
                             p="sm"
