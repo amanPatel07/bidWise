@@ -1,12 +1,12 @@
-import { Auction_STATUS, type IAuction } from "@auction/shared";
-import { Image, Modal, ScrollArea, Table } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
-import { lazy, useMemo, useState } from "react";
+import { Auction_STATUS, type IAuction } from '@auction/shared';
+import { Image, Modal, ScrollArea, Table } from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
+import { lazy, useMemo, useState } from 'react';
 // -------------------------------------------------------------------------------------- //
-import AppButton from "../../../components/Button";
-import { useGetActiveAuctionsQuery } from "../dashboard/utility/slices/auction.service";
+import AppButton from '../../../components/Button';
+import { useGetActiveAuctionsQuery } from '../dashboard/utility/slices/auction.service';
 
-const AuctionCard = lazy(() => import("./AuctionCard"));
+const AuctionCard = lazy(() => import('./AuctionCard'));
 
 const BrowseAuction = () => {
     const { data: auctions, isLoading } = useGetActiveAuctionsQuery(Auction_STATUS.ACTIVE);
@@ -16,41 +16,40 @@ const BrowseAuction = () => {
     const handleClickEvent = (auctionId: string) => {
         setSelectedAuctionId(auctionId);
         open();
-    }
+    };
 
     const selectedAuction = useMemo(
         () => auctions?.find((auction: IAuction) => auction.id === selectedAuctionId),
-        [auctions, selectedAuctionId]
+        [auctions, selectedAuctionId],
     );
 
     if (isLoading) {
-        return <></>
+        return <></>;
     }
 
-    const rows = auctions?.length && auctions.map((auction: IAuction) => (
-        <Table.Tr key={auction.id}>
-            <Table.Td>
-                <Image
-                    radius="md"
-                    h={50}
-                    w={50}
-                    src="https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-10.png"
-                    loading="lazy"
-                />
-            </Table.Td>
-            <Table.Td>{auction.title}</Table.Td>
-            <Table.Td>{auction.description}</Table.Td>
-            <Table.Td>{auction.currentPrice}</Table.Td>
-            <Table.Td>
-                <AppButton
-                    intent="light"
-                    onClick={() => handleClickEvent(auction.id)}
-                >
-                    Buy
-                </AppButton>
-            </Table.Td>
-        </Table.Tr>
-    ))
+    const rows =
+        auctions?.length &&
+        auctions.map((auction: IAuction) => (
+            <Table.Tr key={auction.id}>
+                <Table.Td>
+                    <Image
+                        radius="md"
+                        h={50}
+                        w={50}
+                        src="https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-10.png"
+                        loading="lazy"
+                    />
+                </Table.Td>
+                <Table.Td>{auction.title}</Table.Td>
+                <Table.Td>{auction.description}</Table.Td>
+                <Table.Td>{auction.currentPrice}</Table.Td>
+                <Table.Td>
+                    <AppButton intent="light" onClick={() => handleClickEvent(auction.id)}>
+                        Buy
+                    </AppButton>
+                </Table.Td>
+            </Table.Tr>
+        ));
 
     return (
         <>
@@ -61,15 +60,10 @@ const BrowseAuction = () => {
                 yOffset="10vh"
                 xOffset={0}
             >
-                <AuctionCard
-                    auction={selectedAuction}
-                />
+                <AuctionCard auction={selectedAuction} />
             </Modal>
             <ScrollArea>
-                <Table
-                    stickyHeader
-                    highlightOnHover
-                >
+                <Table stickyHeader highlightOnHover>
                     <Table.Thead>
                         <Table.Tr>
                             <Table.Th>Image</Table.Th>
@@ -79,13 +73,11 @@ const BrowseAuction = () => {
                             <Table.Th>Action</Table.Th>
                         </Table.Tr>
                     </Table.Thead>
-                    <Table.Tbody>
-                        {rows}
-                    </Table.Tbody>
+                    <Table.Tbody>{rows}</Table.Tbody>
                 </Table>
             </ScrollArea>
         </>
     );
-}
+};
 
 export default BrowseAuction;

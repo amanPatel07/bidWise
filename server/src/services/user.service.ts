@@ -1,24 +1,24 @@
-import AuctionRepository from "../core/queries/auctionRepository";
-import BidRepository from "../core/queries/bidRepository";
+import AuctionRepository from '../core/queries/auctionRepository';
+import BidRepository from '../core/queries/bidRepository';
 
 class UserService {
     static async getUserStats(userId: string) {
-        let stats = {
+        const stats = {
             bidPlaced: 0,
             auctionsWon: 0,
             totalSpent: 0,
-            activeBids: 0
+            activeBids: 0,
         };
         let totalSpent = 0;
 
         const auctionsWon = await AuctionRepository.findMany({
             where: {
-                winnerId: userId
-            }
+                winnerId: userId,
+            },
         });
         stats.auctionsWon = auctionsWon?.length;
 
-        auctionsWon.forEach(auction => {
+        auctionsWon.forEach((auction) => {
             if (auction.currentPrice) {
                 totalSpent = auction.currentPrice + totalSpent;
             }
@@ -27,8 +27,8 @@ class UserService {
 
         const totalBids = await BidRepository.findMany({
             where: {
-                buyerId: userId
-            }
+                buyerId: userId,
+            },
         });
         stats.bidPlaced = totalBids?.length;
 
@@ -36,9 +36,9 @@ class UserService {
             where: {
                 buyerId: userId,
                 auction: {
-                    status: 'ACTIVE'
-                }
-            }
+                    status: 'ACTIVE',
+                },
+            },
         });
         stats.activeBids = activeBids?.length;
         return stats;

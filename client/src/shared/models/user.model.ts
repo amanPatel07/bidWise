@@ -1,4 +1,4 @@
-import type { IAuction, IUser } from "@auction/shared";
+import type { IAuction, IUser } from '@auction/shared';
 
 export class UserInfo {
     id: string;

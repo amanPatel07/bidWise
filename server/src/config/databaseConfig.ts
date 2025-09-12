@@ -1,5 +1,5 @@
-import dotenv from "dotenv";
-import { Pool } from "pg";
+import dotenv from 'dotenv';
+import { Pool } from 'pg';
 
 dotenv.config();
 
@@ -29,7 +29,7 @@ class Database {
             await this.pool.connect();
             console.log('Database connected successfully');
         } catch (error) {
-            console.log('Database connection failed', error)
+            console.log('Database connection failed', error);
         }
     }
 }

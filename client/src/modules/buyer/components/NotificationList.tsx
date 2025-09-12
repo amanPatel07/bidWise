@@ -1,5 +1,5 @@
-import { Button, ColorSwatch, Group, Text } from "@mantine/core";
-import { IconChevronRight } from "@tabler/icons-react";
+import { Button, ColorSwatch, Group, Text } from '@mantine/core';
+import { IconChevronRight } from '@tabler/icons-react';
 
 type NotificationListProps = {
     colorSwatchColor: string;
@@ -11,7 +11,7 @@ type NotificationListProps = {
     btnPx: number;
     iconColor: string;
     iconSize: number;
-}
+};
 
 const NotificationList = ({
     colorSwatchColor,
@@ -22,32 +22,19 @@ const NotificationList = ({
     btnPx,
     btnSize,
     iconColor,
-    iconSize
+    iconSize,
 }: NotificationListProps) => {
-
     return (
-        <Group
-            justify={groupJustify}
-        >
+        <Group justify={groupJustify}>
             <Group>
-                <ColorSwatch
-                    color={colorSwatchColor}
-                    size={colorSwatchSize}
-                />
+                <ColorSwatch color={colorSwatchColor} size={colorSwatchSize} />
                 <Text>{text}</Text>
             </Group>
-            <Button
-                variant={btnVariant}
-                size={btnSize}
-                px={btnPx}
-            >
-                <IconChevronRight
-                    color={iconColor}
-                    size={iconSize}
-                />
+            <Button variant={btnVariant} size={btnSize} px={btnPx}>
+                <IconChevronRight color={iconColor} size={iconSize} />
             </Button>
         </Group>
     );
-}
+};
 
 export default NotificationList;

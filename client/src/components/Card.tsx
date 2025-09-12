@@ -4,8 +4,7 @@ const DetailCard = () => {
     return (
         <Card>
             <Card.Section>
-                <Image>
-                </Image>
+                <Image></Image>
             </Card.Section>
             <Group>
                 <Text>Apple Macbook</Text>
@@ -16,7 +15,7 @@ const DetailCard = () => {
             </Group>
             <Text>Ends in 2 hours</Text>
         </Card>
-    )
-}
+    );
+};
 
 export default DetailCard;

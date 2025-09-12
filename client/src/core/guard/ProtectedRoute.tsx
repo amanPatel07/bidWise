@@ -1,8 +1,8 @@
-import { useSelector } from "react-redux"
-import { Outlet } from "react-router-dom";
+import { useSelector } from 'react-redux';
+import { Outlet } from 'react-router-dom';
 
 interface ProtectedRouteProps {
-    allowedRoles?: string[]
+    allowedRoles?: string[];
 }
 
 const ProtectedRoute = ({ allowedRoles }: ProtectedRouteProps) => {
@@ -13,12 +13,10 @@ const ProtectedRoute = ({ allowedRoles }: ProtectedRouteProps) => {
     console.log(user);
 
     if (allowedRoles && allowedRoles.includes(role)) {
-        return <Outlet />
+        return <Outlet />;
     }
 
-    return (
-        <></>
-    )
-}
+    return <></>;
+};
 
 export default ProtectedRoute;

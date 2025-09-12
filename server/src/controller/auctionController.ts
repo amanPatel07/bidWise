@@ -1,18 +1,17 @@
-import { AuctionStatus, PrismaClient } from "@prisma/client";
-import { NextFunction, Request, Response } from "express";
-import { HttpStatus } from "../shared/models/http-status-code.model";
-import { responseSender } from "../shared/responseSender";
+import { AuctionStatus, PrismaClient } from '@prisma/client';
+import { NextFunction, Request, Response } from 'express';
+import { HttpStatus } from '../shared/models/http-status-code.model';
+import { responseSender } from '../shared/responseSender';
 
 const prisma = new PrismaClient();
 const auctionSchema = prisma.auction;
 
 class AuctionController {
-
     static async createAuction(req: Request, res: Response, next: NextFunction) {
         try {
             const auctionDetails = req.body.auctionDetails;
             const auction = await auctionSchema.create({
-                data: { ...auctionDetails }
+                data: { ...auctionDetails },
             });
             if (!auction) {
                 const err = new Error('Something went wrong while creating auction');
@@ -30,15 +29,15 @@ class AuctionController {
             const auctionId: string = req.params.id;
             const auction = await auctionSchema.findUnique({
                 where: {
-                    id: auctionId
-                }
+                    id: auctionId,
+                },
             });
             if (!auction) {
                 const err = new Error('No user found with given id');
                 (err as any).statusCode = HttpStatus.NOT_FOUND;
                 throw err;
             }
-            responseSender(res, HttpStatus.FOUND, 'Success', auction)
+            responseSender(res, HttpStatus.FOUND, 'Success', auction);
         } catch (error) {
             next(error);
         }
@@ -48,11 +47,14 @@ class AuctionController {
         try {
             const { status } = req.query;
             let whereClause = {};
-            if (typeof status === 'string' && Object.values(AuctionStatus).includes(status as AuctionStatus)) {
-                whereClause = { status: status as AuctionStatus};
+            if (
+                typeof status === 'string' &&
+                Object.values(AuctionStatus).includes(status as AuctionStatus)
+            ) {
+                whereClause = { status: status as AuctionStatus };
             }
             const auctions = await auctionSchema.findMany({
-                where: whereClause
+                where: whereClause,
             });
             if (!auctions) {
                 const err = new Error('No auction found with given id');
@@ -70,8 +72,8 @@ class AuctionController {
             const auctionId: string = req.params.id;
             const auction = await auctionSchema.delete({
                 where: {
-                    id: auctionId
-                }
+                    id: auctionId,
+                },
             });
             if (!auction) {
                 const err = new Error('No auction found with given id');
@@ -90,7 +92,7 @@ class AuctionController {
             const auctionDataToUpdate: any = req.body;
             const updatedAuction = await auctionSchema.update({
                 where: { id: auctionId },
-                data: { ...auctionDataToUpdate }
+                data: { ...auctionDataToUpdate },
             });
             if (!updatedAuction) {
                 const err = new Error('Auction not updated');

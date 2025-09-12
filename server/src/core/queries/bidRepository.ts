@@ -1,4 +1,4 @@
-import { prismaClient } from "../prismaClient/prismaClient";
+import { prismaClient } from '../prismaClient/prismaClient';
 
 const bidSchema = prismaClient.bid;
 

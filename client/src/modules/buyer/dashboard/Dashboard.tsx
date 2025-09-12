@@ -1,43 +1,27 @@
-import { Grid, Paper, ScrollArea, Stack, Title } from "@mantine/core";
-import { Auction_STATUS } from "@auction/shared";
-import { useNavigate } from "react-router-dom";
+import { Grid, Paper, ScrollArea, Stack, Title } from '@mantine/core';
+import { Auction_STATUS } from '@auction/shared';
+import { useNavigate } from 'react-router-dom';
 // ----------------------------------------------------------------------- //
-import BuyerStats from "../components/BuyerStats";
-import DashboardAuctions from "../components/DashboardAuctions";
-import NotificationList from "../components/NotificationList";
-import SectionHeader from "../components/SectionHeader";
+import BuyerStats from '../components/BuyerStats';
+import DashboardAuctions from '../components/DashboardAuctions';
+import NotificationList from '../components/NotificationList';
+import SectionHeader from '../components/SectionHeader';
 
 const BuyerDashboard = () => {
-
     const navigate = useNavigate();
 
     const handleNavigate = (url: string) => {
         navigate(url);
-    }
+    };
 
     return (
         <>
-            <Title
-                order={3}
-                pb="md"
-            >
+            <Title order={3} pb="md">
                 Buyer Dashboard
             </Title>
-            <Grid
-                h="100%"
-                overflow="hidden"
-                grow
-            >
-                <Grid.Col
-                    span={{ base: 12, sm: 12, md: 6 }}
-                    h={270}
-                >
-                    <Paper
-                        shadow="lg"
-                        p="md"
-                        withBorder
-                        h="100%"
-                    >
+            <Grid h="100%" overflow="hidden" grow>
+                <Grid.Col span={{ base: 12, sm: 12, md: 6 }} h={270}>
+                    <Paper shadow="lg" p="md" withBorder h="100%">
                         <SectionHeader
                             title="Buyer Stats"
                             btnText="View All"
@@ -47,10 +31,7 @@ const BuyerDashboard = () => {
                         <BuyerStats />
                     </Paper>
                 </Grid.Col>
-                <Grid.Col
-                    span={{ base: 12, sm: 12, md: 6 }}
-                    h={270}
-                >
+                <Grid.Col span={{ base: 12, sm: 12, md: 6 }} h={270}>
                     <Paper
                         shadow="lg"
                         p="md"
@@ -66,16 +47,11 @@ const BuyerDashboard = () => {
                             handleViewAllClick={() => handleNavigate('auctions')}
                         />
                         <ScrollArea>
-                            <DashboardAuctions
-                                auctionStatus={Auction_STATUS.ACTIVE}
-                            />
+                            <DashboardAuctions auctionStatus={Auction_STATUS.ACTIVE} />
                         </ScrollArea>
                     </Paper>
                 </Grid.Col>
-                <Grid.Col
-                    span={{ base: 12, sm: 12, md: 6 }}
-                    h={270}
-                >
+                <Grid.Col span={{ base: 12, sm: 12, md: 6 }} h={270}>
                     <Paper
                         shadow="lg"
                         p="md"
@@ -95,16 +71,8 @@ const BuyerDashboard = () => {
                         </ScrollArea>
                     </Paper>
                 </Grid.Col>
-                <Grid.Col
-                    span={{ base: 12, sm: 12, md: 6 }}
-                    h={270}
-                >
-                    <Paper
-                        shadow="lg"
-                        p="md"
-                        withBorder
-                        h="100%"
-                    >
+                <Grid.Col span={{ base: 12, sm: 12, md: 6 }} h={270}>
+                    <Paper shadow="lg" p="md" withBorder h="100%">
                         <SectionHeader
                             title="Notification"
                             btnText="View All"
@@ -167,6 +135,6 @@ const BuyerDashboard = () => {
             </Grid>
         </>
     );
-}
+};
 
 export default BuyerDashboard;

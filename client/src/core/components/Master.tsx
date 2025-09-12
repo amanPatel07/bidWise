@@ -1,13 +1,13 @@
-import { AppShell, ScrollArea, useComputedColorScheme, useMantineColorScheme } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
-import { Notifications } from "@mantine/notifications";
-import { Suspense, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { Outlet } from "react-router-dom";
-import { useGetUserByIdQuery } from "../../modules/user/pages/profile/utility/slices/userApiSlice";
-import { setUser } from "../../shared/slices/userSlice";
-import Header from "./Header";
-import Sidebar from "./Sidebar";
+import { AppShell, ScrollArea, useComputedColorScheme, useMantineColorScheme } from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
+import { Notifications } from '@mantine/notifications';
+import { Suspense, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { Outlet } from 'react-router-dom';
+import { useGetUserByIdQuery } from '../../modules/user/pages/profile/utility/slices/userApiSlice';
+import { setUser } from '../../shared/slices/userSlice';
+import Header from './Header';
+import Sidebar from './Sidebar';
 
 const Master = () => {
     const [opened, { toggle }] = useDisclosure(false);
@@ -18,13 +18,13 @@ const Master = () => {
 
     useEffect(() => {
         if (user) {
-            userDispatch(setUser((user as any)));
+            userDispatch(setUser(user as any));
         }
     }, [user, userDispatch]);
 
     const toggleTheme = () => {
         setColorScheme(computed === 'light' ? 'dark' : 'light');
-    }
+    };
 
     return (
         <>
@@ -37,8 +37,8 @@ const Master = () => {
                     width: 260,
                     breakpoint: 'sm',
                     collapsed: {
-                        mobile: !opened
-                    }
+                        mobile: !opened,
+                    },
                 }}
                 padding="md"
                 styles={{
@@ -73,6 +73,6 @@ const Master = () => {
             </AppShell>
         </>
     );
-}
+};
 
 export default Master;

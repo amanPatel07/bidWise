@@ -5,10 +5,10 @@ import baseApi from '../core/utility/service/apiSlice';
 export const store = configureStore({
     reducer: {
         user: userSliceReducer,
-        [baseApi.reducerPath]: baseApi.reducer
+        [baseApi.reducerPath]: baseApi.reducer,
     },
     middleware: (getDefaultMiddleware) => {
-        return getDefaultMiddleware().concat(baseApi.middleware)
+        return getDefaultMiddleware().concat(baseApi.middleware);
     },
 });
 

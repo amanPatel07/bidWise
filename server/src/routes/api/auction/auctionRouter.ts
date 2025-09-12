@@ -1,5 +1,5 @@
-import { Router } from "express";
-import AuctionController from "../../../controller/auctionController";
+import { Router } from 'express';
+import AuctionController from '../../../controller/auctionController';
 
 const auctionRouter = Router();
 
@@ -8,6 +8,6 @@ auctionRouter
     .get('/', AuctionController.getAllAuction)
     .get('/:id', AuctionController.getAuctionById)
     .delete('/:id', AuctionController.deleteAuction)
-    .put('/:id', AuctionController.updateAuction)
+    .put('/:id', AuctionController.updateAuction);
 
 export default auctionRouter;

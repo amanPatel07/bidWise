@@ -1,4 +1,4 @@
-import baseApi from "../../../../../core/utility/service/apiSlice";
+import baseApi from '../../../../../core/utility/service/apiSlice';
 
 const bidService = baseApi.injectEndpoints({
     endpoints: (builder) => ({
@@ -8,16 +8,12 @@ const bidService = baseApi.injectEndpoints({
                 method: 'POST',
                 body: {
                     amount,
-                    userId
-                }
+                    userId,
+                },
             }),
-            invalidatesTags: () => [
-                'AUCTION'
-            ]
-        })
-    })
+            invalidatesTags: () => ['AUCTION'],
+        }),
+    }),
 });
 
-export const {
-    usePlaceBidMutation
-} = bidService;
+export const { usePlaceBidMutation } = bidService;

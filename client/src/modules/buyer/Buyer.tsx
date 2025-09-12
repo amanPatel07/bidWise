@@ -1,9 +1,7 @@
-import { Outlet } from "react-router-dom";
+import { Outlet } from 'react-router-dom';
 
 const Buyer = () => {
-    return (
-        <Outlet />
-    );
-}
+    return <Outlet />;
+};
 
 export default Buyer;

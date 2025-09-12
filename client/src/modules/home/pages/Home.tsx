@@ -1,9 +1,7 @@
-import DetailCard from "../../../components/Card";
+import DetailCard from '../../../components/Card';
 
 const Home = () => {
-    return (
-        <DetailCard />
-    );
-}
+    return <DetailCard />;
+};
 
 export default Home;

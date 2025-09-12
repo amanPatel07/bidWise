@@ -1,9 +1,8 @@
-import { prismaClient } from "../prismaClient/prismaClient";
+import { prismaClient } from '../prismaClient/prismaClient';
 
 const userSchema = prismaClient.user;
 
 class UserRepository {
-
     static async findById(id: string) {
         return await userSchema.findUnique({ where: { id } });
     }
@@ -13,7 +12,7 @@ class UserRepository {
     }
 
     static async createUser(detail: any) {
-        return await userSchema.create({ ...detail })
+        return await userSchema.create({ ...detail });
     }
 }
 

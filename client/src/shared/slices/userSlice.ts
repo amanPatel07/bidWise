@@ -1,8 +1,8 @@
-import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import type { UserInfo } from "../models/user.model";
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import type { UserInfo } from '../models/user.model';
 
 interface UserStore {
-    user: UserInfo
+    user: UserInfo;
 }
 
 const initialState: UserStore = {
@@ -19,18 +19,18 @@ const initialState: UserStore = {
         lastLoginAt: '',
         failedLoginAttempts: 0,
         Auction: [],
-        Bid: []
-    }
-}
+        Bid: [],
+    },
+};
 
 const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
         setUser: (state, action: PayloadAction<UserInfo>) => {
-            state.user = action.payload
-        }
-    }
+            state.user = action.payload;
+        },
+    },
 });
 
 export const { setUser } = userSlice.actions;

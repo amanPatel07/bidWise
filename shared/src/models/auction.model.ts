@@ -14,5 +14,5 @@ export interface IAuction {
     updatedAt: Date;
     sellerId: string;
     seller: IUser;
-    bids?: any
+    bids?: any;
 }

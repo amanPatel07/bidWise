@@ -1,5 +1,5 @@
-import { NextFunction, Request, Response } from "express";
-import { HttpStatus } from "../shared/models/http-status-code.model";
+import { NextFunction, Request, Response } from 'express';
+import { HttpStatus } from '../shared/models/http-status-code.model';
 
 const requireRole = (roles: string[]) => {
     return (req: Request, res: Response, next: NextFunction) => {
@@ -20,6 +20,6 @@ const requireRole = (roles: string[]) => {
 
         next();
     };
-}
+};
 
 export default requireRole;

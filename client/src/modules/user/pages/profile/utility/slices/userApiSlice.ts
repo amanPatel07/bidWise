@@ -10,9 +10,7 @@ const userApiSlice = baseApi.injectEndpoints({
                 return toResponse(response?.data);
             },
         }),
-    })
+    }),
 });
 
-export const {
-    useGetUserByIdQuery
-} = userApiSlice;
+export const { useGetUserByIdQuery } = userApiSlice;

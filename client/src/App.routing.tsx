@@ -1,12 +1,12 @@
-import { lazy } from "react";
-import { createBrowserRouter } from "react-router-dom";
+import { lazy } from 'react';
+import { createBrowserRouter } from 'react-router-dom';
 // -------------------------------------------------------------------------------- //
-import Master from "./core/components/Master";
-import AuctionCard from "./modules/buyer/auctions/AuctionCard";
-import BrowseAuction from "./modules/buyer/auctions/BrowseAuctions";
+import Master from './core/components/Master';
+import AuctionCard from './modules/buyer/auctions/AuctionCard';
+import BrowseAuction from './modules/buyer/auctions/BrowseAuctions';
 
-const BuyerDashboard = lazy(() => import("./modules/buyer/dashboard/Dashboard"));
-const Buyer = lazy(() => import("./modules/buyer/Buyer"));
+const BuyerDashboard = lazy(() => import('./modules/buyer/dashboard/Dashboard'));
+const Buyer = lazy(() => import('./modules/buyer/Buyer'));
 
 const appRouter = createBrowserRouter([
     {
@@ -19,7 +19,7 @@ const appRouter = createBrowserRouter([
                 children: [
                     {
                         path: '',
-                        element: <BuyerDashboard />
+                        element: <BuyerDashboard />,
                     },
                     {
                         path: 'auctions',
@@ -27,14 +27,14 @@ const appRouter = createBrowserRouter([
                         children: [
                             {
                                 path: '',
-                                element: <AuctionCard />
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-    }
+                                element: <AuctionCard />,
+                            },
+                        ],
+                    },
+                ],
+            },
+        ],
+    },
 ]);
 
 export default appRouter;

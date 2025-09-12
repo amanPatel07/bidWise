@@ -1,9 +1,5 @@
-
 const Profile = () => {
-    return (
-        <>
-        </>
-    );
-}
+    return <></>;
+};
 
 export default Profile;

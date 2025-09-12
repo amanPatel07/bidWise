@@ -1,8 +1,8 @@
-import { PrismaClient } from "@prisma/client";
-import { NextFunction, Request, Response } from "express";
-import AppError from "../core/handler/appErrorHandler";
-import { HttpStatus } from "../shared/models/http-status-code.model";
-import { responseSender } from "../shared/responseSender";
+import { PrismaClient } from '@prisma/client';
+import { NextFunction, Request, Response } from 'express';
+import AppError from '../core/handler/appErrorHandler';
+import { HttpStatus } from '../shared/models/http-status-code.model';
+import { responseSender } from '../shared/responseSender';
 
 const prisma = new PrismaClient();
 const auctionSchema = prisma.auction;
@@ -17,8 +17,8 @@ class BidController {
             const { bid } = await prisma.$transaction(async (tx) => {
                 const auction = await tx.auction.findUnique({
                     where: {
-                        id: auctionId
-                    }
+                        id: auctionId,
+                    },
                 });
 
                 if (!auction) {
@@ -26,14 +26,18 @@ class BidController {
                 }
 
                 const now = new Date();
-                if (auction.status !== "ACTIVE" || now < auction.startTime || now > auction.endTime) {
+                if (
+                    auction.status !== 'ACTIVE' ||
+                    now < auction.startTime ||
+                    now > auction.endTime
+                ) {
                     throw new AppError('Auction is not open for bidding', HttpStatus.BAD_REQUEST);
                 }
 
                 // Find highest bid
                 const highestBid = await tx.bid.findFirst({
                     where: { auctionId },
-                    orderBy: { amount: 'desc' }
+                    orderBy: { amount: 'desc' },
                 });
 
                 const minBid = highestBid?.amount ?? auction.startingPrice;
@@ -45,13 +49,13 @@ class BidController {
                     data: {
                         amount,
                         auctionId,
-                        buyerId: userId
-                    }
+                        buyerId: userId,
+                    },
                 });
 
                 await tx.auction.update({
                     where: { id: auctionId },
-                    data: { currentPrice: amount }
+                    data: { currentPrice: amount },
                 });
                 return { bid };
             });
@@ -67,8 +71,8 @@ class BidController {
             const { auctionId } = req.params;
             const bids = await bidSchema.findMany({
                 where: {
-                    auctionId
-                }
+                    auctionId,
+                },
             });
             if (!bids) {
                 const error = new Error('No bids found');

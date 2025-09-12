@@ -1,4 +1,4 @@
-import type { IAuction } from "./auction.model";
+import type { IAuction } from './auction.model';
 
 export interface IUser {
     id: string;
@@ -6,12 +6,12 @@ export interface IUser {
     email: string;
     contactNumber: string;
     profileImage: string;
-    role: string
+    role: string;
     status: string;
-    createdAt: Date
+    createdAt: Date;
     updatedAt: Date;
-    lastLoginAt: Date
-    failedLoginAttempts: number
+    lastLoginAt: Date;
+    failedLoginAttempts: number;
     Auction?: IAuction[];
     Bid?: any;
 }

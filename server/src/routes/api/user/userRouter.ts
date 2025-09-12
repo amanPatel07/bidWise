@@ -1,6 +1,6 @@
-import { Router } from "express";
-import UserController from "../../../controller/userController";
-import requireRole from "../../../middleware/requireRole";
+import { Router } from 'express';
+import UserController from '../../../controller/userController';
+import requireRole from '../../../middleware/requireRole';
 
 const userRouter = Router();
 
@@ -8,6 +8,6 @@ userRouter
     .post('/', UserController.createUser)
     .get('/', UserController.getUsers)
     .get('/:id', UserController.getUserById)
-    .get('/dashboard/:id', UserController.getUserStats)
+    .get('/dashboard/:id', UserController.getUserStats);
 
 export default userRouter;

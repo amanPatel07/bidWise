@@ -11,36 +11,36 @@ export const closeAuction = cron.schedule('* * * * *', async () => {
     const auctions = await prisma.auction.findMany({
         where: {
             startTime: {
-                lte: new Date()
+                lte: new Date(),
             },
             endTime: {
-                gte: new Date()
-            }
-        }
+                gte: new Date(),
+            },
+        },
     });
     for (const auction of auctions) {
         const updatedAuction = prisma.auction.update({
             where: {
-                id: auction.id
+                id: auction.id,
             },
-            data: { status: 'ACTIVE' }
+            data: { status: 'ACTIVE' },
         });
-        console.log(updatedAuction)
+        console.log(updatedAuction);
     }
 
     const expiredAuction = await prisma.auction.findMany({
         where: {
             status: Auction_STATUS.ACTIVE,
             endTime: {
-                lte: new Date()
-            }
+                lte: new Date(),
+            },
         },
         include: {
             bids: {
                 orderBy: { amount: 'desc' },
-                take: 1
-            }
-        }
+                take: 1,
+            },
+        },
     });
 
     for (const auction of expiredAuction) {
@@ -51,12 +51,12 @@ export const closeAuction = cron.schedule('* * * * *', async () => {
         }
         await prisma.auction.update({
             where: {
-                id: auction.id
+                id: auction.id,
             },
             data: {
                 status: Auction_STATUS.CLOSED,
-                winnerId: winner
-            }
+                winnerId: winner,
+            },
         });
     }
 

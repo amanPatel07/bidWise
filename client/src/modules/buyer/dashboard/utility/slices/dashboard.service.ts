@@ -1,4 +1,4 @@
-import baseApi from "../../../../../core/utility/service/apiSlice";
+import baseApi from '../../../../../core/utility/service/apiSlice';
 
 const dashboardApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
@@ -6,11 +6,9 @@ const dashboardApi = baseApi.injectEndpoints({
             query: (id: string) => `user/dashboard/${id}`,
             transformResponse: (response: any) => {
                 return response.data;
-            }
-        })
-    })
+            },
+        }),
+    }),
 });
 
-export const {
-    useGetDashboardStatsQuery
-} = dashboardApi
+export const { useGetDashboardStatsQuery } = dashboardApi;
