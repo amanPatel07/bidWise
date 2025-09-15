@@ -4,9 +4,10 @@ import { useDisclosure } from '@mantine/hooks';
 import { lazy, useMemo, useState } from 'react';
 // -------------------------------------------------------------------------------------- //
 import AppButton from '../../../components/Button';
-import { useGetActiveAuctionsQuery } from '../dashboard/utility/slices/auction.service';
+import { useGetActiveAuctionsQuery } from '../utlity/slices/auction.service';
+import AuctionCard from './AuctionCard';
 
-const AuctionCard = lazy(() => import('./AuctionCard'));
+// const AuctionCard = lazy(() => import('./AuctionCard'));
 
 const BrowseAuction = () => {
     const { data: auctions, isLoading } = useGetActiveAuctionsQuery(Auction_STATUS.ACTIVE);

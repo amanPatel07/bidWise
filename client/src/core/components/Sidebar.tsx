@@ -1,5 +1,6 @@
 import { Flex, Group, NavLink, Title } from '@mantine/core';
-import { IconAlbum, IconGavel, IconHammer, IconHome2, IconUserFilled } from '@tabler/icons-react';
+import { IconGavel } from '@tabler/icons-react';
+import { navItems, type INavItems } from '../models/nav-items';
 
 const Sidebar = () => {
     return (
@@ -9,26 +10,16 @@ const Sidebar = () => {
                 <Title order={2}>Platform</Title>
             </Group>
             <Flex direction="column" p="md">
-                <NavLink
-                    href="#required-for-focus"
-                    label="Home"
-                    leftSection={<IconHome2 size={16} stroke={1.5} />}
-                />
-                <NavLink
-                    href="#required-for-focus"
-                    label="Auctions"
-                    leftSection={<IconHammer size={16} stroke={1.5} />}
-                />
-                <NavLink
-                    href="#required-for-focus"
-                    label="My Auctions"
-                    leftSection={<IconAlbum size={16} stroke={1.5} />}
-                />
-                <NavLink
-                    href="#required-for-focus"
-                    label="Profile"
-                    leftSection={<IconUserFilled size={16} stroke={1.5} />}
-                />
+                {
+                    navItems.map((navItems: INavItems) => (
+                        <NavLink
+                            href={navItems.navLink}
+                            label={navItems.label}
+                            leftSection={<navItems.icon size={16} stroke={1.5} />}
+                        >
+                        </NavLink>
+                    ))
+                }
             </Flex>
         </>
     );

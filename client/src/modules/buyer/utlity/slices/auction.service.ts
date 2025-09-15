@@ -1,5 +1,5 @@
 import type { IAuction } from '@auction/shared';
-import baseApi from '../../../../../core/utility/service/apiSlice';
+import baseApi from '../../../../core/utility/service/apiSlice';
 
 const auctionSlice = baseApi.injectEndpoints({
     endpoints: (builder) => ({

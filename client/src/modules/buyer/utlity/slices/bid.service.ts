@@ -1,4 +1,4 @@
-import baseApi from '../../../../../core/utility/service/apiSlice';
+import baseApi from '../../../../core/utility/service/apiSlice';
 
 const bidService = baseApi.injectEndpoints({
     endpoints: (builder) => ({

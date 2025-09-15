@@ -2,7 +2,7 @@ import { type IAuction } from '@auction/shared';
 import { Group, Image, Paper, Stack, Text } from '@mantine/core';
 
 import TableSkeleton from '../../../components/TableSkeleton';
-import { useGetActiveAuctionsQuery } from '../dashboard/utility/slices/auction.service';
+import { useGetActiveAuctionsQuery } from '../utlity/slices/auction.service';
 
 type ActiveAuctionProps = {
     auctionStatus?: string;

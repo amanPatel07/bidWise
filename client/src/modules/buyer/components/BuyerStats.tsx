@@ -1,7 +1,7 @@
 import { Group, Stack, Text } from '@mantine/core';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../../../store/store';
-import { useGetDashboardStatsQuery } from '../dashboard/utility/slices/dashboard.service';
+import { useGetDashboardStatsQuery } from '../utlity/slices/dashboard.service';
 
 const BuyerStats = () => {
     const user = useSelector((state: RootState) => state.user.user);

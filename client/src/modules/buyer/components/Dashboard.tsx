@@ -2,10 +2,10 @@ import { Grid, Paper, ScrollArea, Stack, Title } from '@mantine/core';
 import { Auction_STATUS } from '@auction/shared';
 import { useNavigate } from 'react-router-dom';
 // ----------------------------------------------------------------------- //
-import BuyerStats from '../components/BuyerStats';
-import DashboardAuctions from '../components/DashboardAuctions';
-import NotificationList from '../components/NotificationList';
-import SectionHeader from '../components/SectionHeader';
+import BuyerStats from './BuyerStats';
+import DashboardAuctions from './DashboardAuctions';
+import NotificationList from './NotificationList';
+import SectionHeader from './SectionHeader';
 
 const BuyerDashboard = () => {
     const navigate = useNavigate();

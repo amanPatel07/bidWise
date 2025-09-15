@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import AppButton from '../../../components/Button';
 import type { UserInfo } from '../../../shared/models/user.model';
 import type { RootState } from '../../../store/store';
-import { usePlaceBidMutation } from '../dashboard/utility/slices/bid.service';
+import { usePlaceBidMutation } from '../utlity/slices/bid.service';
 
 type AuctionCardProp = {
     auction?: IAuction;
