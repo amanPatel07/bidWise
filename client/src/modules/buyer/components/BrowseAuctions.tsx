@@ -1,7 +1,7 @@
 import { Auction_STATUS, type IAuction } from '@auction/shared';
 import { Image, Modal, ScrollArea, Table } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { lazy, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 // -------------------------------------------------------------------------------------- //
 import AppButton from '../../../components/Button';
 import { useGetActiveAuctionsQuery } from '../utlity/slices/auction.service';
