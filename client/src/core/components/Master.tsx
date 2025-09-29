@@ -26,6 +26,10 @@ const Master = () => {
         setColorScheme(computed === 'light' ? 'dark' : 'light');
     };
 
+    if (isLoading) {
+        return <>Loading</>
+    }
+
     return (
         <>
             <Notifications />

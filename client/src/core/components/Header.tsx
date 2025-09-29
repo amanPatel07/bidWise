@@ -1,6 +1,6 @@
 import { ActionIcon, Burger, Group, Title } from '@mantine/core';
 import { IconMoon, IconSun } from '@tabler/icons-react';
-import type { HeaderProps } from '../utility/header.model';
+import type { HeaderProps } from '../models/header.model';
 
 const Header = ({ opened, toggle, toggleTheme, computed }: HeaderProps) => {
     return (
