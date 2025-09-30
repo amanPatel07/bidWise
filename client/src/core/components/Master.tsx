@@ -4,8 +4,8 @@ import { Notifications } from '@mantine/notifications';
 import { Suspense, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Outlet } from 'react-router-dom';
-import { useGetUserByIdQuery } from '../../modules/user/pages/profile/utility/slices/userApiSlice';
 import { setUser } from '../../shared/slices/userSlice';
+import { useGetUserByIdQuery } from '../utility/service/userApiSlice';
 import Header from './Header';
 import Sidebar from './Sidebar';
 
